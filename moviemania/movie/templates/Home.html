@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block body %}
+<div class="container-fluid">
+    <center>
+        <a class="navbar-brand text-center" href="/"><img src="{% static 'images/Logo.png' %}" height="100px" weidth="180px"></a>
+        <h3 class="text-secondary">MovieMania.com</h3>
+        <div class="container-fluid">
+            <div class="row mx-auto mt-3">
+              <div class="col mx-2">
+                <a href="#" class="btn btn-primary">Netflix</a>
+              </div>
+              <div class="col mx-2">
+                <a href="#" class="btn btn-primary">Bollywood</a>
+              </div>
+              <div class="col mx-2">
+                <a href="#" class="btn btn-primary">Web Series</a>
+              </div>
+            </div>
+          </div>
+    </center>
+</div>
+<br>
+<div class="container">
+    <div class="row mx-auto mt-3">
+      {% for movie in page_obj %}
+        <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="card border border-primary home-card-shadow px-0 mb-4">
+                <img class="card-img-top" src="{{movie.movie_poster.url}}" height='220px' width="180px" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-text text-primary text-center"><a href="/view/{{movie.id}}">{{movie.movie_name}}</a></h5>
+                  <p class="card-text text-secondary text-center">{{movie.date_added}}</p>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+        <!-- <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="card border border-primary home-card-shadow px-0 mb-4">
+                <img class="card-img-top" src="http://bollyhub.me/wp-content/uploads/2020/05/paatal-200x180.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-text text-primary text-center"><a href="#">PaatalLok Season 1</a></h5>
+                  <p class="card-text text-secondary text-center">Director: Shoojit Sircar</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="card border border-primary home-card-shadow px-0 mb-4">
+                <img class="card-img-top" src="http://bollyhub.me/wp-content/uploads/2020/06/dhoni-200x180.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-text text-primary text-center"><a href="#">Ms Dhoni</a></h5>
+                  <p class="card-text text-secondary text-center">Director: Shoojit Sircar</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="card border border-primary home-card-shadow px-0 mb-4">
+                <img class="card-img-top" src="http://bollyhub.me/wp-content/uploads/2020/06/Shuddh-200x180.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-text text-primary text-center"><a href="#">Sudhdh Desi Romance</a></h5>
+                  <p class="card-text text-secondary text-center">Director: Shoojit Sircar</p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<div class="row justify-content-center">
+  <div class="pagination my-3">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1" class="btn btn-outline-success mr-3 btn-sm">first</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="btn back-color text-light mr-1 btn-sm">&laquo;</a>
+      {% endif %}
+
+      <span class="current text-info font-weight-bold">
+        <span class="font-color">Page</span> {{ page_obj.number }} <span class="font-color">Of </span> {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="btn back-color text-light mr-1 btn-sm">&raquo;</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-success ml-3 btn-sm">Last</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+{% endblock body %}
